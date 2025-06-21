@@ -30,8 +30,8 @@ export default function Contact() {
                   <span className="text-2xl">📧</span>
                   <div>
                     <p className="font-medium text-gray-800">Email</p>
-                    <a href="mailto:hello@letsagoal.com" className="text-indigo-600 hover:text-indigo-700">
-                      hello@letsagoal.com
+                    <a href="mailto:austinmann12@gmail.com" className="text-indigo-600 hover:text-indigo-700">
+                      austinmann12@gmail.com
                     </a>
                   </div>
                 </div>

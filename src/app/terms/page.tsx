@@ -257,8 +257,8 @@ export default function Terms() {
             <div className="bg-gray-50 rounded-lg p-4">
               <p className="text-gray-700">
                 <strong>Email:</strong>{' '}
-                <a href="mailto:legal@letsagoal.com" className="text-indigo-600 hover:text-indigo-700">
-                  legal@letsagoal.com
+                <a href="mailto:austinmann12@gmail.com" className="text-indigo-600 hover:text-indigo-700">
+                  austinmann12@gmail.com
                 </a>
               </p>
               <p className="text-gray-700 mt-2">

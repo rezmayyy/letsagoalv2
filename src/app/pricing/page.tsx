@@ -206,7 +206,7 @@ export default function Pricing() {
               Start Free
             </Link>
             <Link 
-              href="/home" 
+              href="/about" 
               className="border-2 border-white text-white hover:bg-white hover:text-indigo-600 font-semibold py-3 px-6 rounded-lg transition-colors"
             >
               Learn More

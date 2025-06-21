@@ -28,7 +28,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href="mailto:hello@letsagoal.com" 
+                href="mailto:austinmann12@gmail.com" 
                 className="text-gray-400 hover:text-blue-500 transition-colors"
               >
                 <span className="sr-only">Email</span>
@@ -81,7 +81,7 @@ export default function Footer() {
               </li>
               <li>
                 <a 
-                  href="mailto:hello@letsagoal.com" 
+                  href="mailto:austinmann12@gmail.com" 
                   className="text-gray-600 hover:text-blue-700 transition-colors"
                 >
                   Contact Support

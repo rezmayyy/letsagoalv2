@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function About() {
   return (
     <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 min-h-screen">
@@ -32,27 +34,16 @@ export default function About() {
       {/* Team Section */}
       <section className="w-full max-w-4xl mx-auto px-4 py-12">
         <h2 className="text-2xl sm:text-3xl font-bold text-indigo-700 text-center mb-8">Meet the Team</h2>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-1 lg:grid-cols-1 max-w-2xl mx-auto">
           <div className="bg-white/80 rounded-xl p-6 shadow-md text-center">
             <div className="w-20 h-20 bg-indigo-100 rounded-full mx-auto mb-4 flex items-center justify-center">
               <span className="text-2xl">👨‍💻</span>
             </div>
-            <h3 className="font-bold text-lg text-indigo-700 mb-2">Alex Chen</h3>
-            <p className="text-indigo-900 text-sm">Founder & CEO</p>
-          </div>
-          <div className="bg-white/80 rounded-xl p-6 shadow-md text-center">
-            <div className="w-20 h-20 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-2xl">👩‍🎨</span>
-            </div>
-            <h3 className="font-bold text-lg text-indigo-700 mb-2">Sarah Kim</h3>
-            <p className="text-indigo-900 text-sm">Head of Design</p>
-          </div>
-          <div className="bg-white/80 rounded-xl p-6 shadow-md text-center">
-            <div className="w-20 h-20 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-2xl">👨‍🔬</span>
-            </div>
-            <h3 className="font-bold text-lg text-indigo-700 mb-2">Mike Johnson</h3>
-            <p className="text-indigo-900 text-sm">Lead Developer</p>
+            <h3 className="font-bold text-lg text-indigo-700 mb-2">Austin Mann</h3>
+            <p className="text-indigo-900 text-sm">Founder & Developer</p>
+            <p className="text-indigo-600 text-sm mt-2">
+              Building tools to help people achieve their goals, one step at a time.
+            </p>
           </div>
         </div>
       </section>
@@ -64,12 +55,12 @@ export default function About() {
           Join thousands of users who are already achieving their goals with LetsAGoal.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-full shadow transition">
+          <Link href="/signup" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-full shadow transition">
             Get Started Free
-          </button>
-          <button className="bg-white border border-indigo-300 hover:bg-indigo-50 text-indigo-700 font-semibold px-8 py-3 rounded-full shadow transition">
+          </Link>
+          <Link href="/pricing" className="bg-white border border-indigo-300 hover:bg-indigo-50 text-indigo-700 font-semibold px-8 py-3 rounded-full shadow transition">
             Learn More
-          </button>
+          </Link>
         </div>
       </section>
     </div>

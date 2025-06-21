@@ -140,7 +140,7 @@ export default function Privacy() {
               <h4 className="font-semibold text-blue-800 mb-2">Exercising Your Rights</h4>
               <p className="text-blue-700 text-sm">
                 To exercise any of these rights, please contact us at{' '}
-                <a href="mailto:privacy@letsagoal.com" className="underline">privacy@letsagoal.com</a> or through our{' '}
+                <a href="mailto:austinmann12@gmail.com" className="underline">austinmann12@gmail.com</a> or through our{' '}
                 <Link href="/contact" className="underline">contact form</Link>. 
                 We will respond to your request within 45 days.
               </p>
@@ -211,8 +211,8 @@ export default function Privacy() {
             <div className="bg-gray-50 rounded-lg p-4">
               <p className="text-gray-700">
                 <strong>Email:</strong>{' '}
-                <a href="mailto:privacy@letsagoal.com" className="text-indigo-600 hover:text-indigo-700">
-                  privacy@letsagoal.com
+                <a href="mailto:austinmann12@gmail.com" className="text-indigo-600 hover:text-indigo-700">
+                  austinmann12@gmail.com
                 </a>
               </p>
               <p className="text-gray-700 mt-2">
