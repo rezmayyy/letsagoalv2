@@ -246,7 +246,12 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Active Goals ({activeGoals.length})</h3>
               <div className="space-y-4">
                 {activeGoals.map((goal) => (
-                  <GoalCard key={goal.id} goal={goal} onGoalUpdated={handleGoalUpdated} />
+                  <GoalCard 
+                    key={goal.id} 
+                    goal={goal} 
+                    onGoalUpdated={handleGoalUpdated} 
+                    isPro={userProfile?.is_pro || false}
+                  />
                 ))}
               </div>
             </div>
@@ -258,7 +263,12 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-800 mb-4">Completed Goals ({completedGoals.length})</h3>
               <div className="space-y-4">
                 {completedGoals.map((goal) => (
-                  <GoalCard key={goal.id} goal={goal} onGoalUpdated={handleGoalUpdated} />
+                  <GoalCard 
+                    key={goal.id} 
+                    goal={goal} 
+                    onGoalUpdated={handleGoalUpdated} 
+                    isPro={userProfile?.is_pro || false}
+                  />
                 ))}
               </div>
             </div>

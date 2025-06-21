@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import { Goal } from '../types/goal';
-import { toggleGoalStatus, deleteGoal } from '../lib/goals';
+import { toggleGoalStatus, deleteGoal, shareGoal } from '../lib/goals';
 
 interface GoalCardProps {
   goal: Goal;
   onGoalUpdated: () => void;
+  isPro?: boolean;
 }
 
-export default function GoalCard({ goal, onGoalUpdated }: GoalCardProps) {
+export default function GoalCard({ goal, onGoalUpdated, isPro = false }: GoalCardProps) {
   const [loading, setLoading] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
@@ -35,6 +36,18 @@ export default function GoalCard({ goal, onGoalUpdated }: GoalCardProps) {
     } finally {
       setLoading(false);
       setShowDeleteConfirm(false);
+    }
+  };
+
+  const handleShare = async () => {
+    setLoading(true);
+    try {
+      await shareGoal(goal.id);
+      onGoalUpdated();
+    } catch (error) {
+      console.error('Error sharing goal:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,6 +100,17 @@ export default function GoalCard({ goal, onGoalUpdated }: GoalCardProps) {
             {goal.status === 'completed' ? 'Completed' : 'Mark Complete'}
           </button>
           
+          {/* Share Button - Only for Pro users and unshared goals */}
+          {isPro && !goal.shared_at && (
+            <button
+              onClick={handleShare}
+              disabled={loading}
+              className="px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 hover:bg-purple-200 transition-colors"
+            >
+              Share
+            </button>
+          )}
+          
           <button
             onClick={() => setShowDeleteConfirm(true)}
             disabled={loading}
@@ -112,9 +136,9 @@ export default function GoalCard({ goal, onGoalUpdated }: GoalCardProps) {
           </span>
         </div>
         
-        {goal.is_public && (
+        {goal.shared_at && (
           <span className="flex items-center text-purple-600">
-            🌐 Public
+            🌐 Shared on GoalBoard
           </span>
         )}
       </div>
