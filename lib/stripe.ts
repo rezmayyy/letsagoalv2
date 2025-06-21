@@ -1,5 +1,7 @@
+import { loadStripe, Stripe } from '@stripe/stripe-js';
+
 // Client-side Stripe instance with lazy loading
-let stripePromise: Promise<any> | null = null;
+let stripePromise: Promise<Stripe | null> | null = null;
 
 export const getStripe = () => {
   if (stripePromise) {
@@ -19,7 +21,7 @@ export const getStripe = () => {
   }
   
   try {
-    stripePromise = new (require('@stripe/stripe-js')).loadStripe(publishableKey);
+    stripePromise = loadStripe(publishableKey);
     return stripePromise;
   } catch (error) {
     console.error('Error loading Stripe:', error);

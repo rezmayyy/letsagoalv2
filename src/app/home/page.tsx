@@ -2,7 +2,7 @@
 
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { Goal } from '../../types/goal';
 import { getGoals } from '../../lib/goals';
 import CreateGoalForm from '../../components/CreateGoalForm';
@@ -14,7 +14,7 @@ interface UserProfile {
   is_pro: boolean;
 }
 
-export default function Home() {
+function HomeContent() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -42,14 +42,13 @@ export default function Home() {
   // Handle payment success
   useEffect(() => {
     const success = searchParams.get('success');
-    const sessionId = searchParams.get('session_id');
     
-    if (success === 'true' && sessionId && user) {
-      handlePaymentSuccess(sessionId);
+    if (success === 'true' && user) {
+      handlePaymentSuccess();
     }
   }, [searchParams, user]);
 
-  const handlePaymentSuccess = async (sessionId: string) => {
+  const handlePaymentSuccess = async () => {
     try {
       // Update user's Pro status
       const { error } = await supabase
@@ -276,5 +275,13 @@ export default function Home() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div></div>}>
+      <HomeContent />
+    </Suspense>
   );
 } 

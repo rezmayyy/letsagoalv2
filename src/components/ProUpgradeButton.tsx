@@ -42,6 +42,10 @@ export default function ProUpgradeButton({ className = '', children }: ProUpgrad
       const { getStripe } = await import('../../lib/stripe');
       const stripe = await getStripe();
       
+      if (!stripe) {
+        throw new Error('Failed to initialize Stripe');
+      }
+      
       const { error: stripeError } = await stripe.redirectToCheckout({
         sessionId,
       });

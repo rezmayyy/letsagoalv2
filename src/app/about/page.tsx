@@ -8,10 +8,8 @@ export default function About() {
         <h1 className="text-4xl sm:text-5xl font-extrabold text-indigo-700 mb-4">
           About LetsAGoal
         </h1>
-        <p className="text-lg sm:text-xl text-indigo-900 max-w-3xl mb-8">
-          We believe everyone deserves support in achieving their goals. 
-          Whether you prefer to work privately or thrive in a community, 
-          we're here to help you succeed.
+        <p className="text-lg text-gray-600 mb-8">
+          Let&apos;s A Goal is your personal goal-setting companion, designed to help you achieve your dreams one step at a time. Whether you&apos;re working towards fitness goals, career milestones, or personal development, our platform provides the tools and motivation you need to succeed.
         </p>
       </section>
 
@@ -20,12 +18,10 @@ export default function About() {
         <div className="bg-white/80 rounded-xl p-8 shadow-md">
           <h2 className="text-2xl font-bold text-indigo-700 mb-6 text-center">Our Mission</h2>
           <p className="text-indigo-900 text-lg leading-relaxed mb-6">
-            LetsAGoal was born from a simple idea: goal achievement shouldn't be a lonely journey. 
-            We created a platform that respects your privacy while offering the option to connect 
-            with like-minded individuals who can provide encouragement, advice, and accountability.
+            To empower individuals to set, track, and achieve their goals through an intuitive and motivating platform that makes goal-setting accessible to everyone.
           </p>
           <p className="text-indigo-900 text-lg leading-relaxed">
-            Whether you're building a business, learning a new skill, or working on personal growth, 
+            Whether you&apos;re building a business, learning a new skill, or working on personal growth, 
             our community is here to support you every step of the way.
           </p>
         </div>
