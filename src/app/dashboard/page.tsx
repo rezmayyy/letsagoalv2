@@ -8,7 +8,9 @@ import { getGoals } from '../../lib/goals';
 import CreateGoalForm from '../../components/CreateGoalForm';
 import GoalCard from '../../components/GoalCard';
 import ProUpgradeButton from '../../components/ProUpgradeButton';
+import ProfileDropdown from '../../components/ProfileDropdown';
 import { supabase } from '../../../lib/supabase';
+import Link from 'next/link';
 
 interface UserProfile {
   is_pro: boolean;
@@ -113,15 +115,6 @@ export default function Dashboard() {
     loadGoals();
   };
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      router.push('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 flex items-center justify-center">
@@ -154,12 +147,15 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold text-indigo-700">Your Goals Dashboard</h1>
-            <button
-              onClick={handleSignOut}
-              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              Sign Out
-            </button>
+            <div className="flex items-center space-x-4">
+              <Link 
+                href="/dashboard" 
+                className="text-blue-700 hover:text-blue-900 transition-colors hidden sm:block"
+              >
+                Dashboard
+              </Link>
+              <ProfileDropdown />
+            </div>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -197,7 +193,7 @@ export default function Dashboard() {
               
               {!loadingProfile && !userProfile?.is_pro && (
                 <ProUpgradeButton>
-                  Upgrade to Pro - $19
+                  Upgrade to Pro - $4.99
                 </ProUpgradeButton>
               )}
             </div>

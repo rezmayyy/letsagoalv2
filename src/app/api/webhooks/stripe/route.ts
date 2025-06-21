@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '../../../../../lib/stripe';
+import { stripe } from '../../../../../lib/stripe-server';
 import { supabase } from '../../../../../lib/supabase';
 
 export async function POST(request: NextRequest) {
@@ -14,8 +14,8 @@ export async function POST(request: NextRequest) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (err) {
-    console.error('Webhook signature verification failed:', err);
+  } catch (error) {
+    console.error('Webhook signature verification failed:', error);
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 

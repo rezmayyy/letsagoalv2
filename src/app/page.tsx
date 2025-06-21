@@ -82,7 +82,7 @@ export default function Home() {
           <div className="flex-1 bg-purple-50 rounded-xl p-8 shadow border border-purple-100">
             <h3 className="text-lg font-bold text-purple-700 mb-2">Pro</h3>
             <p className="text-purple-900 mb-4">Unlock community features with a one-time payment.</p>
-            <div className="text-3xl font-extrabold text-purple-600 mb-2">$19</div>
+            <div className="text-3xl font-extrabold text-purple-600 mb-2">$4.99</div>
             <div className="text-xs text-purple-700 mb-4">One-time payment, no subscriptions</div>
             <ul className="text-purple-900 text-sm mb-4">
               <li>✔️ Everything in Free</li>
@@ -115,6 +115,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="w-full max-w-4xl mx-auto px-4 py-12">
+        <h2 className="text-2xl sm:text-3xl font-bold text-indigo-700 text-center mb-8">Get in Touch</h2>
+        <div className="bg-white/90 rounded-xl p-8 shadow-md text-center">
+          <p className="text-indigo-900 mb-6 max-w-2xl mx-auto">
+            Have questions about LetsAGoal? Want to share feedback or suggestions? We'd love to hear from you!
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a 
+              href="mailto:hello@letsagoal.com" 
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-full shadow transition"
+            >
+              📧 Email Us
+            </a>
+            <a 
+              href="https://twitter.com/letsagoal" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-full shadow transition"
+            >
+              🐦 Follow on Twitter
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="w-full py-8 px-4 bg-gradient-to-t from-indigo-100/60 to-transparent text-center text-indigo-800 text-sm flex flex-col sm:flex-row gap-4 justify-center items-center border-t border-indigo-200">
         <Link href="/about" className="hover:underline">About</Link>
@@ -123,7 +149,7 @@ export default function Home() {
         <span className="hidden sm:inline">|</span>
         <Link href="#" className="hover:underline">Terms</Link>
         <span className="hidden sm:inline">|</span>
-        <Link href="#" className="hover:underline">Contact</Link>
+        <Link href="#contact" className="hover:underline">Contact</Link>
       </footer>
     </div>
   );

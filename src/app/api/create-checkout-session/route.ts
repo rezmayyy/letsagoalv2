@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '../../../../lib/stripe';
+import { stripe } from '../../../../lib/stripe-server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,19 +20,19 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'LetsAGoal Pro',
-              description: 'One-time upgrade to unlock community features',
+              name: 'LetsAGoal Pro Upgrade',
+              description: 'Unlock public sharing and community features',
             },
-            unit_amount: 1900, // $19.00 in cents
+            unit_amount: 499, // $4.99 in cents
           },
           quantity: 1,
         },
       ],
       mode: 'payment',
       success_url: `${request.nextUrl.origin}/dashboard?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${request.nextUrl.origin}/dashboard?canceled=true`,
+      cancel_url: `${request.nextUrl.origin}/dashboard`,
       metadata: {
-        userId: userId,
+        userId,
       },
     });
 

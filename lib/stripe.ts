@@ -1,13 +1,28 @@
-import Stripe from 'stripe';
+// Client-side Stripe instance with lazy loading
+let stripePromise: Promise<any> | null = null;
 
-// Server-side Stripe instance
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-12-18.acacia',
-});
-
-// Client-side Stripe instance
 export const getStripe = () => {
-  return new (require('@stripe/stripe-js')).loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-  );
+  if (stripePromise) {
+    return stripePromise;
+  }
+
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  
+  if (!publishableKey) {
+    console.error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable');
+    console.error('Available env vars:', Object.keys(process.env).filter(key => key.includes('STRIPE')));
+    throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable. Please check your .env.local file.');
+  }
+  
+  if (!publishableKey.startsWith('pk_')) {
+    throw new Error(`Invalid Stripe publishable key format. Should start with pk_test_ or pk_live_. Got: ${publishableKey.substring(0, 10)}...`);
+  }
+  
+  try {
+    stripePromise = new (require('@stripe/stripe-js')).loadStripe(publishableKey);
+    return stripePromise;
+  } catch (error) {
+    console.error('Error loading Stripe:', error);
+    throw new Error('Failed to initialize Stripe client');
+  }
 }; 

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { getStripe } from '../../lib/stripe';
 
 interface ProUpgradeButtonProps {
   className?: string;
@@ -39,9 +38,11 @@ export default function ProUpgradeButton({ className = '', children }: ProUpgrad
         throw new Error(error);
       }
 
-      // Redirect to Stripe checkout
+      // Dynamically import Stripe to avoid initialization issues
+      const { getStripe } = await import('../../lib/stripe');
       const stripe = await getStripe();
-      const { error: stripeError } = await stripe!.redirectToCheckout({
+      
+      const { error: stripeError } = await stripe.redirectToCheckout({
         sessionId,
       });
 
@@ -68,7 +69,7 @@ export default function ProUpgradeButton({ className = '', children }: ProUpgrad
           Processing...
         </div>
       ) : (
-        children || 'Upgrade to Pro - $19'
+        children || 'Upgrade to Pro - $4.99'
       )}
     </button>
   );
