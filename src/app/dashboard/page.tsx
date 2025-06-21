@@ -1,21 +1,30 @@
 'use client';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Goal } from '../../types/goal';
 import { getGoals } from '../../lib/goals';
 import CreateGoalForm from '../../components/CreateGoalForm';
 import GoalCard from '../../components/GoalCard';
+import ProUpgradeButton from '../../components/ProUpgradeButton';
 import { supabase } from '../../../lib/supabase';
+
+interface UserProfile {
+  is_pro: boolean;
+}
 
 export default function Dashboard() {
   const { user, signOut, loading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [loadingGoals, setLoadingGoals] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [error, setError] = useState('');
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     if (!loading && !user) {
@@ -26,8 +35,40 @@ export default function Dashboard() {
   useEffect(() => {
     if (user) {
       loadGoals();
+      loadUserProfile();
     }
   }, [user]);
+
+  // Handle payment success
+  useEffect(() => {
+    const success = searchParams.get('success');
+    const sessionId = searchParams.get('session_id');
+    
+    if (success === 'true' && sessionId && user) {
+      handlePaymentSuccess(sessionId);
+    }
+  }, [searchParams, user]);
+
+  const handlePaymentSuccess = async (sessionId: string) => {
+    try {
+      // Update user's Pro status
+      const { error } = await supabase
+        .from('profiles')
+        .update({ is_pro: true })
+        .eq('user_id', user?.id);
+
+      if (error) {
+        console.error('Error updating Pro status:', error);
+      } else {
+        setSuccessMessage('🎉 Payment successful! You are now a Pro user!');
+        loadUserProfile(); // Refresh profile data
+        // Clear the URL parameters
+        router.replace('/dashboard');
+      }
+    } catch (error) {
+      console.error('Error handling payment success:', error);
+    }
+  };
 
   const loadGoals = async () => {
     try {
@@ -39,6 +80,27 @@ export default function Dashboard() {
       console.error('Error loading goals:', error);
     } finally {
       setLoadingGoals(false);
+    }
+  };
+
+  const loadUserProfile = async () => {
+    try {
+      setLoadingProfile(true);
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('is_pro')
+        .eq('user_id', user?.id)
+        .single();
+
+      if (error) {
+        console.error('Error loading profile:', error);
+      } else {
+        setUserProfile(data);
+      }
+    } catch (error) {
+      console.error('Error loading profile:', error);
+    } finally {
+      setLoadingProfile(false);
     }
   };
 
@@ -81,6 +143,13 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Success Message */}
+        {successMessage && (
+          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
+            {successMessage}
+          </div>
+        )}
+
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <div className="flex justify-between items-center mb-6">
@@ -112,9 +181,25 @@ export default function Dashboard() {
               <p className="text-purple-600 mb-4">
                 <strong>Completed Goals:</strong> {completedGoals.length}
               </p>
-              <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors">
-                Upgrade to Pro
-              </button>
+              
+              {!loadingProfile && (
+                <div className="mb-4">
+                  <p className="text-purple-600 mb-2">
+                    <strong>Status:</strong> {userProfile?.is_pro ? 'Pro User' : 'Free User'}
+                  </p>
+                  {userProfile?.is_pro && (
+                    <span className="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                      ✨ Pro Features Unlocked
+                    </span>
+                  )}
+                </div>
+              )}
+              
+              {!loadingProfile && !userProfile?.is_pro && (
+                <ProUpgradeButton>
+                  Upgrade to Pro - $19
+                </ProUpgradeButton>
+              )}
             </div>
           </div>
         </div>
