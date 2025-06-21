@@ -20,7 +20,7 @@ export default function Login() {
 
     try {
       await signIn(email, password);
-      router.push('/dashboard'); // Redirect to dashboard after login
+      router.push('/home'); // Redirect to home after login
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred');
     } finally {

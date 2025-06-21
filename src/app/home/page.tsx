@@ -8,16 +8,14 @@ import { getGoals } from '../../lib/goals';
 import CreateGoalForm from '../../components/CreateGoalForm';
 import GoalCard from '../../components/GoalCard';
 import ProUpgradeButton from '../../components/ProUpgradeButton';
-import ProfileDropdown from '../../components/ProfileDropdown';
 import { supabase } from '../../../lib/supabase';
-import Link from 'next/link';
 
 interface UserProfile {
   is_pro: boolean;
 }
 
 export default function Home() {
-  const { user, signOut, loading } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [goals, setGoals] = useState<Goal[]>([]);
@@ -146,16 +144,7 @@ export default function Home() {
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-indigo-700">Your Goals Dashboard</h1>
-            <div className="flex items-center space-x-4">
-              <Link 
-                href="/Home" 
-                className="text-blue-700 hover:text-blue-900 transition-colors hidden sm:block"
-              >
-                Home
-              </Link>
-              <ProfileDropdown />
-            </div>
+            <h1 className="text-3xl font-bold text-indigo-700">Your Goals</h1>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">

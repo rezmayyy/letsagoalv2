@@ -2,17 +2,10 @@
 
 import Link from "next/link";
 import { useAuth } from "../contexts/AuthContext";
+import ProfileDropdown from "./ProfileDropdown";
 
 export default function Navbar() {
-  const { user, signOut } = useAuth();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
+  const { user } = useAuth();
 
   return (
     <nav className="bg-white/90 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
@@ -32,31 +25,18 @@ export default function Navbar() {
             <Link href="/about" className="text-blue-700 hover:text-blue-900 transition-colors">
               About
             </Link>
-            <Link href="#pricing" className="text-blue-700 hover:text-blue-900 transition-colors">
-              Pricing
-            </Link>
-            <Link href="#contact" className="text-blue-700 hover:text-blue-900 transition-colors">
+            <Link href="/contact" className="text-blue-700 hover:text-blue-900 transition-colors">
               Contact
+            </Link>
+            <Link href="/pricing" className="text-blue-700 hover:text-blue-900 transition-colors">
+              Go Pro
             </Link>
           </div>
           
           {/* CTA Buttons */}
           <div className="flex items-center space-x-4">
             {user ? (
-              <>
-                <Link 
-                  href="/home" 
-                  className="text-blue-700 hover:text-blue-900 transition-colors hidden sm:block"
-                >
-                  Dashboard
-                </Link>
-                <button
-                  onClick={handleSignOut}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
-                >
-                  Sign Out
-                </button>
-              </>
+              <ProfileDropdown />
             ) : (
               <>
                 <Link 

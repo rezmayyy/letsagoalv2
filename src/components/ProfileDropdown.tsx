@@ -65,21 +65,21 @@ export default function ProfileDropdown() {
             <p className="text-sm font-medium text-gray-900">{user?.email}</p>
             <p className="text-xs text-gray-500">Signed in</p>
           </div>
-          
-          <Link
-            href="/settings"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            ⚙️ Account Settings
-          </Link>
-          
+
           <Link
             href="/profile"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
             onClick={() => setIsOpen(false)}
           >
             👤 Profile Settings
+          </Link>
+
+          <Link
+            href="/settings"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+            onClick={() => setIsOpen(false)}
+          >
+            ⚙️ Account Settings
           </Link>
           
           <button

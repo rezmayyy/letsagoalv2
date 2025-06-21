@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -11,8 +11,15 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const { signUp } = useAuth();
+  const { signUp, user } = useAuth();
   const router = useRouter();
+
+  // Redirect to home if user is already signed in
+  useEffect(() => {
+    if (user) {
+      router.push('/home');
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,15 +29,27 @@ export default function Signup() {
 
     try {
       await signUp(email, password);
-      setMessage('Check your email for a confirmation link!');
-      // Note: Supabase requires email confirmation by default
-      // You can disable this in your Supabase dashboard if you want immediate access
+      // If email confirmation is disabled, user will be automatically signed in
+      // The useEffect above will handle the redirect
+      setMessage('Account created successfully! Redirecting...');
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
   };
+
+  // Don't render the form if user is already signed in
+  if (user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 flex items-center justify-center px-4">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <p className="mt-4 text-indigo-600">Redirecting to your goals...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 flex items-center justify-center px-4">

@@ -12,12 +12,12 @@ export default function Home() {
           Track your goals privately or share them for support from a like-minded community.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-full shadow transition">
+          <Link href="/signup" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-full shadow transition">
             Get Started Free
-          </button>
-          <button className="bg-white border border-indigo-300 hover:bg-indigo-50 text-indigo-700 font-semibold px-8 py-3 rounded-full shadow transition">
+          </Link>
+          <Link href="/pricing" className="bg-white border border-indigo-300 hover:bg-indigo-50 text-indigo-700 font-semibold px-8 py-3 rounded-full shadow transition">
             Upgrade to Pro
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -75,9 +75,9 @@ export default function Home() {
               <li>✔️ Task management</li>
               <li>✔️ Deadline reminders</li>
             </ul>
-            <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-full shadow transition">
+            <Link href="/signup" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-full shadow transition">
               Get Started
-            </button>
+            </Link>
           </div>
           <div className="flex-1 bg-purple-50 rounded-xl p-8 shadow border border-purple-100">
             <h3 className="text-lg font-bold text-purple-700 mb-2">Pro</h3>
@@ -89,9 +89,9 @@ export default function Home() {
               <li>✔️ Share public goals</li>
               <li>✔️ Comments & encouragement</li>
             </ul>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded-full shadow transition">
+            <Link href="/pricing" className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded-full shadow transition">
               Upgrade to Pro
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -101,34 +101,34 @@ export default function Home() {
         <h2 className="text-2xl sm:text-3xl font-bold text-indigo-700 text-center mb-8">What Our Users Say</h2>
         <div className="grid gap-8 sm:grid-cols-3">
           <div className="bg-white/80 rounded-xl p-6 shadow flex flex-col items-center">
-            <p className="text-indigo-900 italic mb-2">“LetsAGoal helped me finally finish my side project. The community support is amazing!”</p>
+            <p className="text-indigo-900 italic mb-2">"LetsAGoal helped me finally finish my side project. The community support is amazing!"</p>
             <span className="text-indigo-700 font-semibold">– Jamie L.</span>
           </div>
           <div className="bg-white/80 rounded-xl p-6 shadow flex flex-col items-center">
-            <p className="text-indigo-900 italic mb-2">“I love the simple design and the one-time Pro upgrade. No subscriptions!”</p>
+            <p className="text-indigo-900 italic mb-2">"I love the simple design and the one-time Pro upgrade. No subscriptions!"</p>
             <span className="text-indigo-700 font-semibold">– Alex P.</span>
           </div>
           <div className="bg-white/80 rounded-xl p-6 shadow flex flex-col items-center">
-            <p className="text-indigo-900 italic mb-2">“Tracking my goals privately was great, but sharing them made all the difference.”</p>
+            <p className="text-indigo-900 italic mb-2">"Tracking my goals privately was great, but sharing them made all the difference."</p>
             <span className="text-indigo-700 font-semibold">– Morgan S.</span>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="w-full max-w-4xl mx-auto px-4 py-12">
+      <section className="w-full max-w-4xl mx-auto px-4 py-12">
         <h2 className="text-2xl sm:text-3xl font-bold text-indigo-700 text-center mb-8">Get in Touch</h2>
         <div className="bg-white/90 rounded-xl p-8 shadow-md text-center">
           <p className="text-indigo-900 mb-6 max-w-2xl mx-auto">
             Have questions about LetsAGoal? Want to share feedback or suggestions? We'd love to hear from you!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a 
-              href="mailto:hello@letsagoal.com" 
+            <Link 
+              href="/contact" 
               className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-full shadow transition"
             >
-              📧 Email Us
-            </a>
+              📧 Contact Us
+            </Link>
             <a 
               href="https://twitter.com/letsagoal" 
               target="_blank" 
@@ -140,17 +140,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="w-full py-8 px-4 bg-gradient-to-t from-indigo-100/60 to-transparent text-center text-indigo-800 text-sm flex flex-col sm:flex-row gap-4 justify-center items-center border-t border-indigo-200">
-        <Link href="/about" className="hover:underline">About</Link>
-        <span className="hidden sm:inline">|</span>
-        <Link href="#" className="hover:underline">Privacy</Link>
-        <span className="hidden sm:inline">|</span>
-        <Link href="#" className="hover:underline">Terms</Link>
-        <span className="hidden sm:inline">|</span>
-        <Link href="#contact" className="hover:underline">Contact</Link>
-      </footer>
     </div>
   );
 }

@@ -38,10 +38,10 @@ export default function Profile() {
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-3xl font-bold text-indigo-700">Profile Settings</h1>
             <Link 
-              href="/dashboard" 
+              href="/home" 
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors"
             >
-              ← Back to Dashboard
+              ← Back to Home
             </Link>
           </div>
 

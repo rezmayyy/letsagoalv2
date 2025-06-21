@@ -38,10 +38,10 @@ export default function Settings() {
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-3xl font-bold text-indigo-700">Account Settings</h1>
             <Link 
-              href="/dashboard" 
+              href="/home" 
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors"
             >
-              ← Back to Dashboard
+              ← Back to Home
             </Link>
           </div>
 
@@ -69,7 +69,7 @@ export default function Settings() {
               </p>
               {!user.user_metadata?.is_pro && (
                 <Link 
-                  href="/dashboard" 
+                  href="/home" 
                   className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
                 >
                   Upgrade to Pro
