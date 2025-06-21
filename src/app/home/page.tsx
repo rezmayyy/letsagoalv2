@@ -128,7 +128,7 @@ export default function Home() {
     return null; // Will redirect to login
   }
 
-  const activeGoals = goals.filter(goal => goal.status === 'active');
+  const activeGoals = goals.filter(goal => goal.status === 'in_progress' || goal.status === 'active');
   const completedGoals = goals.filter(goal => goal.status === 'completed');
 
   return (

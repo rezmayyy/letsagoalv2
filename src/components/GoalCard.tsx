@@ -61,7 +61,7 @@ export default function GoalCard({ goal, onGoalUpdated, isPro = false }: GoalCar
     });
   };
 
-  const isOverdue = goal.deadline && new Date(goal.deadline) < new Date() && goal.status === 'active';
+  const isOverdue = goal.deadline && new Date(goal.deadline) < new Date() && (goal.status === 'in_progress' || goal.status === 'active');
 
   return (
     <div className={`bg-white rounded-lg shadow-md p-6 border-l-4 ${
@@ -97,7 +97,11 @@ export default function GoalCard({ goal, onGoalUpdated, isPro = false }: GoalCar
                 : 'bg-indigo-100 text-indigo-800 hover:bg-indigo-200'
             }`}
           >
-            {goal.status === 'completed' ? 'Completed' : 'Mark Complete'}
+            <span className={`text-sm font-medium ${
+              goal.status === 'completed' ? 'line-through text-gray-600' : 'text-gray-800'
+            }`}>
+              {goal.status === 'completed' ? 'Mark In Progress' : 'Mark Complete'}
+            </span>
           </button>
           
           {/* Share Button - Only for Pro users and unshared goals */}

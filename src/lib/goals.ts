@@ -85,8 +85,9 @@ export async function deleteGoal(id: string): Promise<void> {
 }
 
 export async function toggleGoalStatus(id: string, currentStatus: string): Promise<Goal> {
-  const newStatus = currentStatus === 'in_progress' ? 'completed' : 'in_progress';
-  return updateGoal(id, { status: newStatus as 'in_progress' | 'completed' });
+  const isActive = currentStatus === 'in_progress' || currentStatus === 'active';
+  const newStatus = isActive ? 'completed' : 'in_progress';
+  return updateGoal(id, { status: newStatus as 'in_progress' | 'completed' | 'active' });
 }
 
 export async function getPublicGoals(): Promise<PublicGoal[]> {
@@ -115,12 +116,22 @@ export async function getPublicGoals(): Promise<PublicGoal[]> {
 
   // Step 2: Get the user profiles for the authors of the goals.
   const userIds = [...new Set(goalsData.map(g => g.user_id))];
-  const { data: profilesData } = await supabase
-    .from('profiles')
-    .select('user_id, email, full_name')
-    .in('user_id', userIds);
+  
+  // Only query profiles if we have user IDs
+  let profilesMap = new Map();
+  if (userIds.length > 0) {
+    const { data: profilesData, error: profilesError } = await supabase
+      .from('profiles')
+      .select('user_id, username')
+      .in('user_id', userIds);
 
-  const profilesMap = new Map(profilesData?.map(p => [p.user_id, p]));
+    if (profilesError) {
+      console.error('Error fetching profiles:', profilesError);
+      // Continue with empty profiles map instead of throwing
+    } else {
+      profilesMap = new Map(profilesData?.map(p => [p.user_id, p]));
+    }
+  }
 
   // Step 3: Get the likes for the current user to determine which goals are already liked.
   const { data: likedGoals } = await supabase
@@ -143,7 +154,7 @@ export async function getPublicGoals(): Promise<PublicGoal[]> {
     created_at: goal.created_at,
     updated_at: goal.updated_at,
     shared_at: goal.shared_at,
-    user: profilesMap.get(goal.user_id) || { email: 'Unknown User' },
+    user: profilesMap.get(goal.user_id) || { username: 'Unknown User' },
     is_liked: likedGoalIds.has(goal.id),
   }));
 
@@ -198,20 +209,43 @@ export async function unshareGoal(goalId: string): Promise<void> {
 }
 
 export async function getGoalComments(publicGoalId: string): Promise<GoalComment[]> {
-  const { data, error } = await supabase
+  const { data: comments, error: commentsError } = await supabase
     .from('goal_comments')
-    .select(`
-      *,
-      user:profiles(email, full_name)
-    `)
+    .select('*')
     .eq('public_goal_id', publicGoalId)
     .order('created_at', { ascending: true });
 
-  if (error) {
-    throw error;
+  if (commentsError) {
+    throw commentsError;
   }
 
-  return data || [];
+  if (!comments || comments.length === 0) {
+    return [];
+  }
+
+  // Get user profiles for the comments
+  const userIds = [...new Set(comments.map(c => c.user_id))];
+  const { data: profilesData, error: profilesError } = await supabase
+    .from('profiles')
+    .select('user_id, username')
+    .in('user_id', userIds);
+
+  if (profilesError) {
+    console.error('Error fetching profiles for comments:', profilesError);
+    // Return comments without user data if profiles fetch fails
+    return comments.map(comment => ({
+      ...comment,
+      user: { username: 'Unknown User' }
+    }));
+  }
+
+  const profilesMap = new Map(profilesData?.map(p => [p.user_id, p]));
+
+  // Combine comments with user data
+  return comments.map(comment => ({
+    ...comment,
+    user: profilesMap.get(comment.user_id) || { username: 'Unknown User' }
+  }));
 }
 
 export async function createComment(commentData: CreateCommentData): Promise<GoalComment> {

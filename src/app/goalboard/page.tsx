@@ -190,7 +190,7 @@ export default function GoalBoard() {
                     )}
                     
                     <div className="flex items-center justify-between text-sm text-gray-500">
-                      <span>by {goal.user?.full_name || goal.user?.email}</span>
+                      <span>by {goal.user?.username || 'Unknown User'}</span>
                       <div className="flex items-center space-x-4">
                         <button
                           onClick={(e) => {
@@ -253,7 +253,7 @@ export default function GoalBoard() {
                     <div key={comment.id} className="border-b border-gray-200 pb-4">
                       <div className="flex justify-between items-start mb-2">
                         <span className="font-medium text-gray-800">
-                          {comment.user?.full_name || comment.user?.email}
+                          {comment.user?.username || 'Unknown User'}
                         </span>
                         <span className="text-xs text-gray-500">
                           {new Date(comment.created_at).toLocaleDateString()}

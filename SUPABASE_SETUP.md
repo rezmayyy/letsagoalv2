@@ -131,6 +131,15 @@ CREATE TABLE profiles (
 CREATE POLICY "Users can view their own profile" ON profiles
   FOR SELECT USING (auth.uid() = id);
 
+CREATE POLICY "Users can view profiles of users with shared goals" ON profiles
+  FOR SELECT USING (
+    EXISTS (
+      SELECT 1 FROM goals 
+      WHERE goals.user_id = profiles.id 
+      AND goals.shared_at IS NOT NULL
+    )
+  );
+
 CREATE POLICY "Users can update their own profile" ON profiles
   FOR UPDATE USING (auth.uid() = id);
 

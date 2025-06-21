@@ -3,7 +3,7 @@ export interface Goal {
   user_id: string;
   title: string;
   description?: string;
-  status: 'in_progress' | 'completed';
+  status: 'in_progress' | 'completed' | 'active';
   deadline?: string;
   created_at: string;
   updated_at: string;
@@ -15,7 +15,7 @@ export interface PublicGoal {
   user_id: string;
   title: string;
   description?: string;
-  status: 'in_progress' | 'completed';
+  status: 'in_progress' | 'completed' | 'active';
   deadline?: string;
   likes_count: number;
   comments_count: number;
@@ -24,8 +24,7 @@ export interface PublicGoal {
   shared_at: string;
   // Joined data
   user?: {
-    email: string;
-    full_name?: string;
+    username: string;
   };
   is_liked?: boolean;
 }
@@ -38,8 +37,7 @@ export interface GoalComment {
   created_at: string;
   // Joined data
   user?: {
-    email: string;
-    full_name?: string;
+    username: string;
   };
 }
 
@@ -59,7 +57,7 @@ export interface CreateGoalData {
 export interface UpdateGoalData {
   title?: string;
   description?: string;
-  status?: 'in_progress' | 'completed';
+  status?: 'in_progress' | 'completed' | 'active';
   deadline?: string;
 }
 
