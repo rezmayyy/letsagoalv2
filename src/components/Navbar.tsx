@@ -26,7 +26,7 @@ export default function Navbar() {
           
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-blue-700 hover:text-blue-900 transition-colors">
+            <Link href="/home" className="text-blue-700 hover:text-blue-900 transition-colors">
               Home
             </Link>
             <Link href="/about" className="text-blue-700 hover:text-blue-900 transition-colors">
@@ -45,7 +45,7 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link 
-                  href="/dashboard" 
+                  href="/home" 
                   className="text-blue-700 hover:text-blue-900 transition-colors hidden sm:block"
                 >
                   Dashboard
